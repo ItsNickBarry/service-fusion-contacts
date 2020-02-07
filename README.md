@@ -1,4 +1,6 @@
-# Rails + Vue Project
+# Service Fusion Contacts
+
+Contact list management.
 
 This repository was generated from a template or is the template itself.  For more information, see [docs/TEMPLATE.md](./docs/TEMPLATE.md).
 
