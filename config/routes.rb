@@ -3,5 +3,6 @@ Rails.application.routes.draw do
   root to: 'pages#root'
 
   namespace :api, defaults: { format: :json } do
+    resources :contacts, only: [:show, :index, :create, :update, :destroy]
   end
 end

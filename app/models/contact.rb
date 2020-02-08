@@ -2,9 +2,9 @@ class Contact < ApplicationRecord
   validate :has_at_least_one_email
   validate :has_at_least_one_phone_number
 
-  has_many :addresses
-  has_many :emails
-  has_many :phone_numbers
+  has_many :addresses, dependent: :destroy
+  has_many :emails, dependent: :destroy
+  has_many :phone_numbers, dependent: :destroy
 
   accepts_nested_attributes_for :addresses, allow_destroy: true
   accepts_nested_attributes_for :emails, allow_destroy: true

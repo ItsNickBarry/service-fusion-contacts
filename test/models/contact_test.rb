@@ -2,12 +2,7 @@ require 'test_helper'
 
 class ContactTest < ActiveSupport::TestCase
   before do
-    @contact = Contact.create({
-      first_name: 'fn', last_name: 'ln',
-      addresses_attributes: [{ body: 'address' }],
-      emails_attributes: [{ body: 'email' }],
-      phone_numbers_attributes: [{ body: 'phone_number' }],
-    })
+    @contact = contacts(:christian_winters)
   end
 
   describe Contact do
