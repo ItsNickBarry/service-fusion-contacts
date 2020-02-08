@@ -18,8 +18,10 @@ class Api::ContactsController < ApplicationController
 
   def update
     @contact = Contact.find params[:id]
+
     Contact.transaction do
       @contact.update contact_params
+
       if @contact.valid?
         render :show
       else
