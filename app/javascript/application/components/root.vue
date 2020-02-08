@@ -11,6 +11,11 @@
     >
       <template slot="detail" slot-scope="props">
         <article class="media">
+          <figure class="media-left">
+            <p class="image is-64x64">
+              <v-gravatar :email="props.row.emails[0].body" :size="64" />
+            </p>
+          </figure>
           <div class="media-content">
             <strong>{{ props.row.first_name }} {{ props.row.last_name }}</strong>
             <small v-for="address in props.row.addresses" :key="address.id">{{ address.body }}</small>
