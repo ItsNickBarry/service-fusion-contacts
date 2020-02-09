@@ -1,8 +1,8 @@
 <template>
   <div>
-    <p v-show="loading">
-      TODO: LOADING
-    </p>
+    <div v-show="loading" class="container has-text-centered">
+      <LineLoader :size="512" />
+    </div>
 
     <div class="container">
       <b-message
@@ -54,11 +54,12 @@
 </template>
 
 <script>
+import { LineLoader } from 'vue-spinners-css';
 import ContactForm from './contact_form.vue';
 import ContactDetail from './contact_detail.vue';
 
 export default {
-  components: { ContactForm, ContactDetail },
+  components: { LineLoader, ContactForm, ContactDetail },
   data: function () {
     return {
       loading: true,
