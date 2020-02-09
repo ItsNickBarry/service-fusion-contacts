@@ -14,13 +14,13 @@ class Contact < ApplicationRecord
 
     def has_at_least_one_email
       if emails.empty?
-        errors.add(:emails, 'must have at least one')
+        errors.add(:emails, 'must be present (one or more)')
       end
     end
 
     def has_at_least_one_phone_number
       if phone_numbers.empty?
-        errors.add(:phone_numbers, 'must have at least one')
+        errors.add(:phone_numbers, 'must be present (one or more)')
       end
     end
 end
