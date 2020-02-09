@@ -1,12 +1,12 @@
 <template>
   <div>
-    <footer class="footer">
+    <footer class="footer has-text-light">
       <p>
-        Source code available on <a href="https://github.com/ItsNickBarry/service-fusion-contacts">GitHub</a>.
+        Source code available on <a class="has-text-warning" href="https://github.com/ItsNickBarry/service-fusion-contacts">GitHub</a>.
       </p>
 
       <p>
-        TODO: OSS licenses
+        Licenses for OSS in use available <a class="has-text-warning" href="/LICENSE.txt">here</a>.
       </p>
     </footer>
   </div>
@@ -15,3 +15,10 @@
 <script>
 export default {};
 </script>
+
+<style scoped>
+  footer {
+    background-image: url('/irongrip.png');
+    background-repeat: repeat;
+  }
+</style>

@@ -18,21 +18,25 @@
     </div>
 
     <div v-show="!loading && errors.length == 0">
-      <div class="container">
-        <b-button @click="modalActive = true">
-          New Contact
-        </b-button>
-      </div>
-
       <b-table
         v-show="!loading"
         :data="collection"
         :columns="columns"
         detailed
         :show-detail-icon="true"
+        :paginated="collection.length > 10"
+        :per-page="10"
       >
         <template slot="detail" slot-scope="props">
           <ContactDetail :contact="props.row" />
+        </template>
+
+        <template slot="footer">
+          <div class="has-text-right">
+            <b-button @click="modalActive = true">
+              New Contact
+            </b-button>
+          </div>
         </template>
       </b-table>
     </div>

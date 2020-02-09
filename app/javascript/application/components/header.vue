@@ -15,3 +15,10 @@
 <script>
 export default {};
 </script>
+
+<style scoped>
+  header {
+    background-image: url('/beige-tiles.png');
+    background-repeat: repeat;
+  }
+</style>
