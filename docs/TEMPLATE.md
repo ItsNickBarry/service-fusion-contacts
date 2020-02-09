@@ -7,10 +7,10 @@ Template for new projects built with Ruby on Rails and Vue.js.
 Initialized with the following command using Rails `6.0.1`:
 
 ```bash
-rails new rails-vue-template --skip-turbolinks --webpack=vue
+rails new service-fusion-contracts --skip-turbolinks --webpack=vue
 ```
 
-Instances of `RailsVueTemplate`, `rails_vue_template`, and `rails-vue-template` should be updated to reflect the name of the application.
+Instances of `RailsVueTemplate`, `service_fusion_contracts`, and `service-fusion-contracts` should be updated to reflect the name of the application.
 
 ## MVC Components
 

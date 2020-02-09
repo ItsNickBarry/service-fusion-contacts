@@ -6,7 +6,7 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module RailsVueTemplate
+module ServiceFusionContacts
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
@@ -18,5 +18,15 @@ module RailsVueTemplate
 
     config.generators.javascripts = false
     # config.generators.stylesheets = false
+
+    config.after_initialize do
+      begin
+        Rake::Task
+      rescue
+        Rails.application.load_tasks
+      ensure
+        Rake::Task['compile_licenses'].invoke
+      end
+    end
   end
 end

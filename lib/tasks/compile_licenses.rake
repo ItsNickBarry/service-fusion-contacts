@@ -1,4 +1,6 @@
 task :compile_licenses do
+  puts 'Compiling open source licenses via Yarn.'
+
   output = 'public/LICENSE.txt'
 
   `npx yarn licenses generate-disclaimer --silent > #{ output }`

@@ -12,5 +12,5 @@ Vue.component('v-gravatar', Gravatar);
 global.$(document).ready(function () {
   new Vue({
     render: h => h(Root),
-  }).$mount('#rails-vue-template');
+  }).$mount('#service-fusion-contracts');
 });
