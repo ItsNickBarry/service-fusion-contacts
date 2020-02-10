@@ -4,7 +4,7 @@ class Api::ContactsController < ApplicationController
   end
 
   def index
-    @contacts = Contact.all
+    @contacts = Contact.includes(:addresses, :emails, :phone_numbers).all
   end
 
   def create

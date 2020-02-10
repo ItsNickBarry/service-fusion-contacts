@@ -28,15 +28,21 @@
         :per-page="10"
       >
         <template slot="detail" slot-scope="props">
-          <ContactDetail :contact="props.row" />
+          <ContactDetail :contact="props.row" @edit="edit" @update="update" />
         </template>
 
         <template slot="footer">
           <div class="has-text-right">
-            <b-button @click="modalActive = true">
+            <b-button @click="edit(new Object())">
               New Contact
             </b-button>
           </div>
+        </template>
+
+        <template slot="empty">
+          <section class="section">
+            <p>No contacts found</p>
+          </section>
         </template>
       </b-table>
     </div>
@@ -45,7 +51,7 @@
       <div class="card">
         <div class="card-content">
           <div class="media">
-            <ContactForm :collection="collection" />
+            <ContactForm :contact="modalContact" @create="create" />
           </div>
         </div>
       </div>
@@ -66,6 +72,8 @@ export default {
       errors: [],
 
       modalActive: false,
+      modalContact: null,
+
       columns: [
         { field: 'first_name', label: 'First Name', sortable: true, searchable: true },
         { field: 'last_name', label: 'Last Name', sortable: true, searchable: true },
@@ -85,9 +93,25 @@ export default {
       }.bind(this),
       error: function (res) {
         this.loading = false;
-        this.errors = [res.statusText];
+        this.errors = res.responseJSON || [res.statusText];
       }.bind(this),
     });
+  },
+
+  methods: {
+    create: function (data) {
+      this.collection.push(data);
+    },
+
+    update: function (data) {
+      let i = this.collection.findIndex(el => el.id === data.id);
+      Object.assign(this.collection[i], data);
+    },
+
+    edit: function (data) {
+      this.modalContact = data;
+      this.modalActive = true;
+    },
   },
 };
 </script>

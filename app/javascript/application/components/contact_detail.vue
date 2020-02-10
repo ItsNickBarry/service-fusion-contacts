@@ -7,6 +7,10 @@
       <strong>{{ contact.first_name }} {{ contact.last_name }}</strong>
       <br>
       <small>{{ contact.date_of_birth }}</small>
+
+      <b-button @click="$emit('edit', contactData)">
+        Edit
+      </b-button>
     </figure>
 
     <div class="media-content">
@@ -24,7 +28,7 @@
               v-show="!address._destroy"
               :key="i"
               closable
-              @close="removeAddress(address, i)"
+              @close="removeAddress(i)"
             >
               {{ address.body }}
             </b-tag>
@@ -40,7 +44,7 @@
               v-show="!email._destroy"
               :key="i"
               :closable="contact.emails.length > 1"
-              @close="removeEmail(email, i)"
+              @close="removeEmail(i)"
             >
               {{ email.body }}
             </b-tag>
@@ -56,7 +60,7 @@
               v-show="!phoneNumber._destroy"
               :key="i"
               :closable="contact.phone_numbers.length > 1"
-              @close="removePhoneNumber(phoneNumber, i)"
+              @close="removePhoneNumber(i)"
             >
               {{ phoneNumber.body }}
             </b-tag>
@@ -73,43 +77,60 @@ export default {
     contact: { type: Object, default: () => new Object() },
   },
 
+  data: function () {
+    return {
+      errors: [],
+    };
+  },
+
+  computed: {
+    contactData: function () {
+      return {
+        id: this.contact.id || 0,
+        first_name: this.contact.first_name || '',
+        last_name: this.contact.last_name || '',
+        date_of_birth: this.contact.date_of_birth ? new Date(this.contact.date_of_birth) : null,
+        addresses: this.contact.addresses || [{ body: '' }],
+        emails: this.contact.emails || [{ body: '' }],
+        phone_numbers: this.contact.phone_numbers || [{ body: '' }],
+      };
+    },
+  },
+
   methods: {
-    removeAddress: function (address, i) {
-      this.contact.addresses[i]._destroy = true;
+    removeAddress: function (i) {
+      this.contactData.addresses[i]._destroy = true;
       this.save();
     },
 
-    removeEmail: function (email, i) {
-      this.contact.emails[i]._destroy = true;
+    removeEmail: function (i) {
+      this.contactData.emails[i]._destroy = true;
       this.save();
     },
 
-    removePhoneNumber: function (phoneNumber, i) {
-      this.contact.phone_numbers[i]._destroy = true;
+    removePhoneNumber: function (i) {
+      this.contactData.phone_numbers[i]._destroy = true;
       this.save();
     },
 
     save: function () {
-      let data = { contact: {
-        first_name: this.contact.first_name,
-        last_name: this.contact.last_name,
-        date_of_birth: this.contact.date_of_birth,
-        addresses_attributes: this.contact.addresses.filter(el => !el.id || el._destroy),
-        emails_attributes: this.contact.emails.filter(el => !el.id || el._destroy),
-        phone_numbers_attributes: this.contact.phone_numbers.filter(el => !el.id || el._destroy),
-      } };
+      let data = Object.assign({}, this.contactData, {
+        addresses_attributes: this.contactData.addresses,
+        emails_attributes: this.contactData.emails,
+        phone_numbers_attributes: this.contactData.phone_numbers,
+      });
 
       global.$.ajax({
         type: 'PATCH',
         url: `/api/contacts/${ this.contact.id }`,
-        data,
+        data: { contact: data },
         success: function (res) {
           this.loading = false;
-          this.contact = res;
+          this.$emit('update', res);
         }.bind(this),
         error: function (res) {
           this.loading = false;
-          this.error = res;
+          this.errors = res;
         }.bind(this),
       });
     },
