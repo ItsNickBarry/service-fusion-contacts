@@ -7,7 +7,7 @@
       <strong>{{ contact.first_name }} {{ contact.last_name }}</strong>
       <br>
       <small>{{ contact.date_of_birth }}</small>
-
+      <br>
       <b-button @click="$emit('edit', contactData)">
         Edit
       </b-button>

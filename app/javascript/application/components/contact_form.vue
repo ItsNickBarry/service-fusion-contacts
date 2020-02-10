@@ -42,7 +42,9 @@
           :model="addresses[i - 1]"
         />
 
-        <b-button class="is-small" @click="addresses.push({})">
+        <br>
+
+        <b-button icon-left="plus-circle" @click="addresses.push({})">
           Add Another
         </b-button>
       </div>
@@ -58,7 +60,9 @@
           :model="emails[i - 1]"
         />
 
-        <b-button class="is-small" @click="emails.push({})">
+        <br>
+
+        <b-button icon-left="plus-circle" @click="emails.push({})">
           Add Another
         </b-button>
       </div>
@@ -74,7 +78,9 @@
           :model="phone_numbers[i - 1]"
         />
 
-        <b-button class="is-small" @click="phone_numbers.push({})">
+        <br>
+
+        <b-button icon-left="plus-circle" @click="phone_numbers.push({})">
           Add Another
         </b-button>
       </div>

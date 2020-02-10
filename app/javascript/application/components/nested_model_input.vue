@@ -20,9 +20,7 @@
       :name="`contact[${ name }][${ index }][_destroy]`"
     />
 
-    <b-button @click="destroy = true">
-      x
-    </b-button>
+    <b-button icon-left="close-circle" @click="destroy = true" />
   </b-field>
 </template>
 
