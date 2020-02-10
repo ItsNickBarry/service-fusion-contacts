@@ -51,7 +51,7 @@
       <div class="card">
         <div class="card-content">
           <div class="media">
-            <ContactForm :contact="modalContact" @create="create" />
+            <ContactForm :contact="modalContact" @create="create" @update="update" />
           </div>
         </div>
       </div>

@@ -35,11 +35,11 @@
         <strong>Addresses</strong>
 
         <NestedModelInput
-          v-for="i in addresses.length"
+          v-for="(model, i) in addresses"
           :key="i"
           :index="i"
           name="addresses_attributes"
-          :model="addresses[i - 1]"
+          :model="model"
         />
 
         <br>
@@ -53,11 +53,11 @@
         <strong>Emails</strong>
 
         <NestedModelInput
-          v-for="i in emails.length"
+          v-for="(model, i) in emails"
           :key="i"
           :index="i"
           name="emails_attributes"
-          :model="emails[i - 1]"
+          :model="model"
         />
 
         <br>
@@ -71,11 +71,11 @@
         <strong>Phone Numbers</strong>
 
         <NestedModelInput
-          v-for="i in phone_numbers.length"
+          v-for="(model, i) in phone_numbers"
           :key="i"
           :index="i"
           name="phone_numbers_attributes"
-          :model="phone_numbers[i - 1]"
+          :model="model"
         />
 
         <br>
