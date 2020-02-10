@@ -11,6 +11,10 @@
       <b-button @click="$emit('edit', contactData)">
         Edit
       </b-button>
+      <br>
+      <b-button @click="destroy">
+        Delete
+      </b-button>
     </figure>
 
     <div class="media-content">
@@ -114,6 +118,7 @@ export default {
     },
 
     save: function () {
+      this.loading = true;
       let data = Object.assign({}, this.contactData, {
         addresses_attributes: this.contactData.addresses,
         emails_attributes: this.contactData.emails,
@@ -127,6 +132,23 @@ export default {
         success: function (res) {
           this.loading = false;
           this.$emit('update', res);
+        }.bind(this),
+        error: function (res) {
+          this.loading = false;
+          this.errors = res;
+        }.bind(this),
+      });
+    },
+
+    destroy: function () {
+      this.loading = true;
+
+      global.$.ajax({
+        type: 'DELETE',
+        url: `/api/contacts/${ this.contact.id }`,
+        success: function () {
+          this.loading = false;
+          this.$emit('destroy', { id: this.contact.id });
         }.bind(this),
         error: function (res) {
           this.loading = false;

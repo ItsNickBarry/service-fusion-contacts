@@ -28,7 +28,7 @@
         :per-page="10"
       >
         <template slot="detail" slot-scope="props">
-          <ContactDetail :contact="props.row" @edit="edit" @update="update" />
+          <ContactDetail :contact="props.row" @edit="edit" @update="update" @destroy="destroy" />
         </template>
 
         <template slot="footer">
@@ -106,6 +106,11 @@ export default {
     update: function (data) {
       let i = this.collection.findIndex(el => el.id === data.id);
       Object.assign(this.collection[i], data);
+    },
+
+    destroy: function (data) {
+      let i = this.collection.findIndex(el => el.id === data.id);
+      this.collection.splice(i, 1);
     },
 
     edit: function (data) {
