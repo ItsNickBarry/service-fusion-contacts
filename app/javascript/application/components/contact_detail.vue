@@ -8,11 +8,11 @@
       <br>
       <small>{{ contact.date_of_birth }}</small>
       <br>
-      <b-button @click="$emit('edit', contactData)">
+      <b-button :disabled="loading" @click="$emit('edit', contactData)">
         Edit
       </b-button>
       <br>
-      <b-button @click="destroy">
+      <b-button :disabled="loading" @click="destroy">
         Delete
       </b-button>
     </figure>
@@ -83,6 +83,7 @@ export default {
 
   data: function () {
     return {
+      loading: false,
       errors: [],
     };
   },
