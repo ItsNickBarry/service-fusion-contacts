@@ -1,91 +1,96 @@
 <template>
   <div class="contact-form">
-    <b-message
-      v-show="errors.length > 0"
-      title="Error"
-      type="is-warning"
-      aria-close-label="Dismiss"
-    >
-      <div v-for="error in errors" :key="error">
-        {{ error }}
-      </div>
-    </b-message>
-
     <form action="javascript:void(0)" @submit="save">
-      <b-field label="First Name">
-        <b-input v-model="first_name" name="contact[first_name]" required />
-      </b-field>
+      <div class="columns">
+        <div class="column">
+          <b-message
+            v-show="errors.length > 0"
+            title="Error"
+            type="is-warning"
+            aria-close-label="Dismiss"
+          >
+            <div v-for="error in errors" :key="error">
+              {{ error }}
+            </div>
+          </b-message>
 
-      <b-field label="Last Name">
-        <b-input v-model="last_name" name="contact[last_name]" required />
-      </b-field>
+          <b-field label="First Name">
+            <b-input v-model="first_name" name="contact[first_name]" required />
+          </b-field>
 
-      <b-field label="Date of Birth">
-        <b-datepicker
-          v-model="date_of_birth"
-          placeholder="Click to select..."
-          name="contact[date_of_birth]"
-          required
-        />
-        <b-button :disabled="date_of_birth == null" @click="date_of_birth = null">
-          clear
-        </b-button>
-      </b-field>
+          <b-field label="Last Name">
+            <b-input v-model="last_name" name="contact[last_name]" required />
+          </b-field>
+        </div>
 
-      <div label="Addresses">
-        <strong>Addresses</strong>
-
-        <NestedModelInput
-          v-for="(model, i) in addresses"
-          :key="i"
-          :index="i"
-          name="addresses_attributes"
-          :model="model"
-        />
-
-        <br>
-
-        <b-button icon-left="plus-circle" @click="addresses.push({})">
-          Add Another
-        </b-button>
+        <div class="column">
+          <b-field label="Date of Birth">
+            <b-datepicker
+              v-model="date_of_birth"
+              placeholder="Click to select..."
+              name="contact[date_of_birth]"
+              required
+              inline
+            />
+          </b-field>
+        </div>
       </div>
 
-      <div label="Emails">
-        <strong>Emails</strong>
+      <div class="columns">
+        <div class="column">
+          <strong><b-icon icon="home" />Addresses</strong>
 
-        <NestedModelInput
-          v-for="(model, i) in emails"
-          :key="i"
-          :index="i"
-          name="emails_attributes"
-          :model="model"
-        />
+          <NestedModelInput
+            v-for="(model, i) in addresses"
+            :key="i"
+            :index="i"
+            name="addresses_attributes"
+            :model="model"
+          />
 
-        <br>
+          <br>
 
-        <b-button icon-left="plus-circle" @click="emails.push({})">
-          Add Another
-        </b-button>
+          <b-button icon-left="plus-circle" @click="addresses.push({})">
+            Add Another
+          </b-button>
+        </div>
+
+        <div class="column">
+          <strong><b-icon icon="email" />Emails</strong>
+
+          <NestedModelInput
+            v-for="(model, i) in emails"
+            :key="i"
+            :index="i"
+            name="emails_attributes"
+            :model="model"
+          />
+
+          <br>
+
+          <b-button icon-left="plus-circle" @click="emails.push({})">
+            Add Another
+          </b-button>
+        </div>
+
+        <div class="column">
+          <strong><b-icon icon="phone" />Phone Numbers</strong>
+
+          <NestedModelInput
+            v-for="(model, i) in phone_numbers"
+            :key="i"
+            :index="i"
+            name="phone_numbers_attributes"
+            :model="model"
+          />
+
+          <br>
+
+          <b-button icon-left="plus-circle" @click="phone_numbers.push({})">
+            Add Another
+          </b-button>
+        </div>
       </div>
-
-      <div label="Phone Numbers">
-        <strong>Phone Numbers</strong>
-
-        <NestedModelInput
-          v-for="(model, i) in phone_numbers"
-          :key="i"
-          :index="i"
-          name="phone_numbers_attributes"
-          :model="model"
-        />
-
-        <br>
-
-        <b-button icon-left="plus-circle" @click="phone_numbers.push({})">
-          Add Another
-        </b-button>
-      </div>
-
       <b-button native-type="submit" :disabled="loading">
         Save
       </b-button>
@@ -126,6 +131,9 @@ export default {
       this.errors = [];
 
       let data = global.$(event.target).closest('form').serializeJSON();
+
+      // serializeJSON does not work with inline datepicker
+      data.contact.date_of_birth = this.date_of_birth;
 
       ['addresses_attributes', 'emails_attributes', 'phone_numbers_attributes'].forEach(function (name) {
         let collection = data.contact[name];

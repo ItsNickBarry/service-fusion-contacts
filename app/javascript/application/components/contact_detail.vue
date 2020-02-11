@@ -9,11 +9,10 @@
       <small>{{ contact.date_of_birth }}</small>
       <br>
       <b-button :disabled="loading" @click="$emit('edit', contactData)">
-        Edit
+        <b-icon icon="pencil" />
       </b-button>
-      <br>
       <b-button :disabled="loading" @click="destroy">
-        Delete
+        <b-icon icon="close-circle" />
       </b-button>
     </figure>
 
