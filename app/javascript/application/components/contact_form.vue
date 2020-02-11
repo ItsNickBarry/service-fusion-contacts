@@ -13,11 +13,11 @@
 
     <form action="javascript:void(0)" @submit="save">
       <b-field label="First Name">
-        <b-input v-model="first_name" name="contact[first_name]" />
+        <b-input v-model="first_name" name="contact[first_name]" required />
       </b-field>
 
       <b-field label="Last Name">
-        <b-input v-model="last_name" name="contact[last_name]" />
+        <b-input v-model="last_name" name="contact[last_name]" required />
       </b-field>
 
       <b-field label="Date of Birth">
@@ -25,6 +25,7 @@
           v-model="date_of_birth"
           placeholder="Click to select..."
           name="contact[date_of_birth]"
+          required
         />
         <b-button :disabled="date_of_birth == null" @click="date_of_birth = null">
           clear

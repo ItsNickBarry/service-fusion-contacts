@@ -1,4 +1,7 @@
 class Contact < ApplicationRecord
+  validates :first_name, :last_name, :date_of_birth, presence: true
+  validates :first_name, uniqueness: { scope: :last_name, message: 'must be unique within the scope of last name' }
+
   validate :has_at_least_one_email
   validate :has_at_least_one_phone_number
 
