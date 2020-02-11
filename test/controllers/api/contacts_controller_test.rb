@@ -22,9 +22,9 @@ class Api::ContactsControllerTest < ActionDispatch::IntegrationTest
       it 'creates and renders contact' do
         assert_difference 'Contact.count', 1 do
           post api_contacts_url, params: { contact: {
-            first_name: 'fn', last_name: 'ln',
-            emails_attributes: [{ body: 'email' }],
-            phone_numbers_attributes: [{ body: 'phone_number' }],
+            first_name: 'fn', last_name: 'ln', date_of_birth: Date.yesterday,
+            emails_attributes: [{ body: 'account@example.com' }],
+            phone_numbers_attributes: [{ body: '6857191110321' }],
           } }
         end
         assert_response 200
